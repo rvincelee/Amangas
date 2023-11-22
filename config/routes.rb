@@ -1,16 +1,10 @@
 Rails.application.routes.draw do
-  get "genre/index"
-  get "genre/show"
-  get "order_details/index"
-  get "order_details/show"
-  get "order/index"
-  get "order/show"
-  get "user/index"
-  get "user/show"
-  get "author/index"
-  get "author/show"
-  get "manga/index"
-  get "manga/show"
+  resources :genres, only: %i[index show]
+  resources :order_details, only: %i[index show]
+  resources :orders, only: %i[index show]
+  resources :users, only: %i[index show]
+  resources :authors, only: %i[index show]
+  resources :mangas, only: %i[index show]
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
