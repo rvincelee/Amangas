@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_231_122_181_632) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_22_181632) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -34,8 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 20_231_122_181_632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name:   "index_admin_users_on_reset_password_token",
-                                      unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "authors", force: :cascade do |t|
@@ -94,6 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 20_231_122_181_632) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order_id", null: false
+    t.index ["order_id"], name: "index_users_on_order_id"
   end
 
   add_foreign_key "genres", "mangas"
@@ -101,4 +102,5 @@ ActiveRecord::Schema[7.0].define(version: 20_231_122_181_632) do
   add_foreign_key "order_details", "mangas"
   add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "users"
+  add_foreign_key "users", "orders"
 end
