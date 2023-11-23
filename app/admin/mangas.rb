@@ -4,7 +4,7 @@ ActiveAdmin.register Manga do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :title, :price, :score, :publish_date, :image, :status, :author_id
+  permit_params :title, :price, :score, :publish_date, :image, :status, :author_id, :image
   #
   # or
   #
@@ -13,4 +13,13 @@ ActiveAdmin.register Manga do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  form do |f|
+    f.semantic_errors
+    f.inputs
+    f.inputs do
+      f.input :image, as: :file
+    end
+    f.actions
+  end
 end
