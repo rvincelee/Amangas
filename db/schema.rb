@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_23_154512) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_27_234122) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -73,22 +73,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_23_154512) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
-    t.integer "manga_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["manga_id"], name: "index_genres_on_manga_id"
+  end
+
+  create_table "genres_mangas", id: false, force: :cascade do |t|
+    t.integer "genre_id"
+    t.integer "manga_id"
+    t.index ["genre_id", "manga_id"], name: "index_genres_mangas_on_genre_id_and_manga_id", unique: true
+    t.index ["genre_id"], name: "index_genres_mangas_on_genre_id"
+    t.index ["manga_id"], name: "index_genres_mangas_on_manga_id"
   end
 
   create_table "mangas", force: :cascade do |t|
     t.string "title"
     t.decimal "price"
     t.float "score"
-    t.date "publish_date"
+    t.string "publish_date"
     t.string "image"
     t.string "status"
     t.integer "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
     t.index ["author_id"], name: "index_mangas_on_author_id"
   end
 
@@ -121,13 +128,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_23_154512) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order_id", null: false
+    t.integer "order_id"
     t.index ["order_id"], name: "index_users_on_order_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "genres", "mangas"
   add_foreign_key "mangas", "authors"
   add_foreign_key "order_details", "mangas"
   add_foreign_key "order_details", "orders"
