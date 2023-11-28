@@ -1,2 +1,19 @@
-<h1>Manga#show</h1>
-<p>Find me in app/views/manga/show.html.erb</p>
+<%= image_tag @manga.image %>
+<h3><%= @manga.title %></h3>
+<li>Author: <%= link_to @manga.author.name, @manga.author%></li>
+<li>Genres:
+<% @manga.genres.each do |genre| %>
+  <%= link_to genre.name, genre %>
+<% end %>
+</li>
+<li>Date Published: <%= @manga.publish_date %></li>
+<li>Status: <%= @manga.status %></li>
+<li>User Score: <%= @manga.score %></li>
+<li>Price: <%= @manga.price %></li>
+<li>Synopsis: <%= @manga.description %></li>
+
+
+
+
+
+

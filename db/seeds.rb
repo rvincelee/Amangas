@@ -37,25 +37,29 @@ manga_data["data"].each do |manga|
     auth.name = manga["authors"][0]["name"]
   end
 
-  image_bytes = response.headers[:content_length].to_i
-  image_url = manga["images"]["webp"]["image_url"]
-  image_blob = ActiveStorage::Blob.create_before_direct_upload!(
-    filename:  "manga_image.webp",
-    byte_size: image_bytes,
-    checksum:  Digest::MD5.base64digest(image_url)
-  )
+  # image_bytes = response.headers[:content_length].to_i
+  # image_url = manga["images"]["webp"]["image_url"]
+  # image_blob = ActiveStorage::Blob.create_before_direct_upload!(
+  #   filename:  "manga_image.webp",
+  #   byte_size: image_bytes,
+  #   checksum:  Digest::MD5.base64digest(image_url)
+  # )
 
   manga_instance = author.manga.find_or_create_by(
     title:        manga["title_english"],
     description:  manga["synopsis"],
     score:        manga["score"],
     price:        Faker::Commerce.price(range: 7.99..12.99),
-    publish_date: "#{day} #{month}, #{year}",
+    publish_date: Date.new(year, month, day),
     status:       manga["status"]
   )
+  download_image = URI.parse(manga["images"]["webp"]["image_url"]).open
+  manga_instance.image.attach(io:       download_image,
+                              filename: "#{manga['title_english']}.webp")
+
   next unless manga_instance.valid?
 
-  manga_instance.image.attach(image_blob)
+  # manga_instance.image.attach(image_blob)
 
   manga["genres"].each do |genre_data|
     genre = Genre.find_by(name: genre_data["name"])

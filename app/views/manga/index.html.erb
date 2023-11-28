@@ -1,2 +1,7 @@
-<h1>Manga#index</h1>
-<p>Find me in app/views/manga/index.html.erb</p>
+<h1>Available Manga</h1>
+<ul>
+  <% @mangas.each do |manga| %>
+    <%= image_tag manga.image %>
+    <li><%= link_to manga.title, manga %></li>
+  <% end %>
+</ul>
