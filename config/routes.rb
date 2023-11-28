@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :manga, only: %i[index show]
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  get "pages/:name", to: "pages#show", as: "page"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
