@@ -4,7 +4,9 @@ ActiveAdmin.register Manga do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :title, :price, :score, :publish_date, :status, :author_id, :image
+  permit_params :title, :price, :score, :publish_date, :status, :author_id, :image, :description,
+                genre_ids: []
+
   #
   # or
   #
@@ -20,6 +22,7 @@ ActiveAdmin.register Manga do
     f.inputs do
       f.input :image, as:   :file,
                       hint: f.object.image.present? ? image_tag(f.object.image, size: "113x160") : ""
+      f.input :genres, as: :check_boxes, collection: Genre.all
     end
     f.actions
   end

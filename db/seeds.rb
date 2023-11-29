@@ -24,7 +24,7 @@ genres_data["data"].each do |genre|
   Genre.find_or_create_by(name: genre["name"])
 end
 
-sleep(10)
+sleep(1)
 
 response = RestClient.get("https://api.jikan.moe/v4/manga?score>9.01")
 
@@ -35,17 +35,7 @@ manga_data["data"].each do |manga|
   month = manga["published"]["prop"]["from"]["month"]
   year = manga["published"]["prop"]["from"]["year"]
 
-  author = Author.find_or_create_by(name: manga["authors"][0]["name"]) do |auth|
-    auth.name = manga["authors"][0]["name"]
-  end
-
-  # image_bytes = response.headers[:content_length].to_i
-  # image_url = manga["images"]["webp"]["image_url"]
-  # image_blob = ActiveStorage::Blob.create_before_direct_upload!(
-  #   filename:  "manga_image.webp",
-  #   byte_size: image_bytes,
-  #   checksum:  Digest::MD5.base64digest(image_url)
-  # )
+  author = Author.find_or_create_by(name: manga["authors"][0]["name"])
 
   manga_instance = author.manga.find_or_create_by(
     title:        manga["title_english"],
@@ -61,14 +51,12 @@ manga_data["data"].each do |manga|
 
   next unless manga_instance.valid?
 
-  # manga_instance.image.attach(image_blob)
-
   manga["genres"].each do |genre_data|
     genre = Genre.find_by(name: genre_data["name"])
     genre.mangas << manga_instance if !manga_instance.genres.exists?(genre.id) && manga_instance
   end
 
-  sleep(10)
+  sleep(1)
 end
 
 provinces = [{ name: "Alberta", abbreviation: "AB", PST: nil, GST: 0.05, HST: nil },

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root "home#index"
 
-  get 'home/index'
+  get "home/index"
 
   resources :genres, only: %i[index show]
   resources :order_details, only: %i[index show]
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  get "/pages/:name", to: "pages#show", as: :page
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -6,6 +6,7 @@ ActiveAdmin.register Genre do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :name, :manga_id
+
   #
   # or
   #
