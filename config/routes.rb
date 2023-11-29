@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root "home#index"
+
+  get 'home/index'
   resources :genre, only: %i[index show]
   resources :order_details, only: %i[index show]
   resources :order, only: %i[index show]
