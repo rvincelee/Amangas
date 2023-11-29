@@ -1,4 +1,14 @@
 <h1>Available Manga</h1>
+
+  <ul>
+    <li><%= link_to("Home", root_path) %></li>
+    <li><%= link_to("Mangas", mangas_path) %></li>
+    <li><%= link_to("Authors", authors_path) %></li>
+    <li><%= link_to("Genres", genres_path) %></li>
+    <li><a>About Us</a></li> 
+    <li><%= link_to("Orders", orders_path) %></li>
+  </ul>
+
 <ul>
   <% @mangas.each do |manga| %>
     <%= image_tag manga.image %>
