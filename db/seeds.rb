@@ -24,6 +24,8 @@ genres_data["data"].each do |genre|
   Genre.find_or_create_by(name: genre["name"])
 end
 
+sleep(10)
+
 response = RestClient.get("https://api.jikan.moe/v4/manga?score>9.01")
 
 manga_data = JSON.parse(response.body)
@@ -65,6 +67,8 @@ manga_data["data"].each do |manga|
     genre = Genre.find_by(name: genre_data["name"])
     genre.mangas << manga_instance if !manga_instance.genres.exists?(genre.id) && manga_instance
   end
+
+  sleep(10)
 end
 
 provinces = [{ name: "Alberta", abbreviation: "AB", PST: nil, GST: 0.05, HST: nil },
