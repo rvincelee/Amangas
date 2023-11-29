@@ -1,0 +1,12 @@
+<h1>Search results <%=@keyword.present? ? "for '#{@keyword}'" : "" %>
+<%= @genre_keyword.present? ? "in #{@genre_keyword.name} genre" : ''%></h1>
+<% if @results.present? %>
+<ul>
+  <% @results.each do |manga| %>
+    <%= image_tag manga.image %>
+    <li><%= link_to manga.title, manga %></li>
+  <% end %>
+</ul>
+<% else %>
+  <p>No search results available.</p>
+<% end %>

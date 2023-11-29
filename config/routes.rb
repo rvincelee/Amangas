@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   get "/pages/:name", to: "pages#show", as: :page
-
+  get "/search", to: "search#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
