@@ -1,4 +1,4 @@
-class MangaController < ApplicationController
+class MangasController < ApplicationController
   def index
     @mangas = Manga.all
   end
