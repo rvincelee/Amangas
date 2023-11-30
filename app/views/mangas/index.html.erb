@@ -1,4 +1,17 @@
 <h1 class="text-4xl font-semibold text-center p-4">Available Manga</h1>
+
+<div class="flex justify-end">
+    <%= form_tag({ controller: 'mangas', action: 'index' }, method: :get) do %>
+    <%= select_tag(:sort_by, options_for_select([['Score', 'score'],
+                                            ['Price: Low to High', 'price_asc'],
+                                            ['Price: High to Low', 'price_desc'],
+                                            ['Title', 'title']]
+                                             params[:sort_by]), class: 'form-control' ) %>
+    <%= button_tag "Sort", type: :submit, class: 'btn btn-primary ml-2' %>
+    <% end %>
+</div>  
+
+
 <div class="flex justify-center">
   <div class="grid grid-cols-3 gap-10 list-none text-center">
   <% @mangas.each do |manga| %>
