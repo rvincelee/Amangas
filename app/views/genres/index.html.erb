@@ -1,5 +1,8 @@
-<h1>Genres</h1>
-
-<% @genres.each do |genre| %>
-  <li><%= link_to genre.name, genre %></li>
-<% end %>
+<h1 class="text-4xl font-semibold text-center p-4">Genres</h1>
+<div class="flex justify-center">
+  <ul class="grid grid-cols-5 gap-2 list-none text-center">
+  <% @genres.each do |genre| %>
+    <li class="p-2 m-2"><%= link_to genre.name, genre %></li>
+  <% end %>
+  </ul>
+</div>

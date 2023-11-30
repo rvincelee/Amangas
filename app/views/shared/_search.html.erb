@@ -1,5 +1,7 @@
-<%= form_with(url: search_path, method: "get") do |form| %>
-  <%= form.text_field :keyword, placeholder: "Search by keyword" %>
-  <%= form.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select Genre" } %>
-  <%= form.submit "Search" %>
-<% end %>
+<div class="flex justify-end mb-2">
+  <%= form_with(url: search_path, method: "get") do |form| %>
+    <%= form.text_field :keyword, placeholder: "Search by keyword" %>
+    <%= form.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select Genre" } %>
+    <button class="btn font-semibold p-2 px-4 rounded-sm bg-gray-200" type="submit">🔍</button>
+  <% end %>
+</div>
