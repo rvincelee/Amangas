@@ -1,2 +1,11 @@
-<h1>Author#show</h1>
-<p>Find me in app/views/author/show.html.erb</p>
+<h1 class="text-4xl font-semibold text-center p-4"><%= @author.name %></h1>
+
+<div>
+  <ul>
+    <% @author.manga.each do |manga| %>
+      <li class="py-4">
+        <%= link_to manga.title, manga, class: "text-xl"%>
+      </li>
+    <% end %>
+  </ul>
+</div>
