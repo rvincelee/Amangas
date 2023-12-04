@@ -1,3 +1,9 @@
-<h1>Author#index</h1>
+<h1 class="text-4xl font-semibold text-center p-4">Authors</h1>
+<div class="flex justify-center">
+    <ul class="grid grid-cols-5 gap-4 list-none text-center">
+    <% @authors.each do |author| %>
+        <li class="p-4 m-2"><%= link_to author.name, author, class: "text-xl" %></li>
+    <% end %>
+    </ul>
+</div>
 
-<p>Find me in app/views/author/index.html.erb</p>
