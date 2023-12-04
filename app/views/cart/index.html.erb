@@ -1,0 +1,29 @@
+<h1 class="text-4xl font-semibold text-center p-4">My Cart</h1>
+
+<% if cart.present? %>
+  <% cart.each do |manga| %>
+    <div class="flex flex-col mx-2 p-4" >
+      <div class="flex">
+        <%= link_to image_tag(manga.image, size: "100x200"), manga_path(manga) %>
+        <div class="flex flex-col mx-4 justify-between">
+          <p class="text-2xl"><%= link_to manga.title, manga_path(manga) %></p>
+          <p class="text-md">By: <%= link_to manga.author.name, author_path(manga), class: "text-blue-600 hover:text-blue-800 hover:underline" %></p>
+          <div class="flex flex-row items-center">
+            <p class="text-md"><%= "Qty: x#{session[:shopping_cart][manga.id.to_s]["quantity"]}" %></p>
+            <%= button_to " ➕", increment_path(id: manga.id), class:"text-xs mx-2 bg-gray-300 rounded-md p-1 hover:bg-gray-400", method: :patch %>
+            <% if session[:shopping_cart][manga.id.to_s]["quantity"] != 1 %>
+              <%= button_to " ➖", decrement_path(id: manga.id), class:"text-xs mx-2 bg-gray-300 rounded-md p-1 hover:bg-gray-400", method: :patch %>
+            <% end %>
+          </div>
+          <div class="">
+            <%= button_to "Remove", cart_path(id: manga.id), class:"items-end text-blue-600 hover:text-blue-800 hover:underline", method: :delete %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  <% end %>
+<% else %>
+  <p>Your cart is empty</p>
+<% end %>

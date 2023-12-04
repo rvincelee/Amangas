@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :users, only: %i[index show]
   resources :authors, only: %i[index show]
   resources :mangas, only: %i[index show]
-
+  resources :cart, only: %i[create destroy index]
+  patch "cart/increment/:id", to: "cart#increment", as: "increment"
+  patch "cart/decrement/:id", to: "cart#decrement", as: "decrement"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 

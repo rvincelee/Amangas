@@ -1,12 +1,24 @@
-<h1>Search results <%=@keyword.present? ? "for '#{@keyword}'" : "" %>
+<h1 class="text-4xl font-semibold text-center p-4">Search results <%=@keyword.present? ? "for '#{@keyword}'" : "" %>
 <%= @genre_keyword.present? ? "in #{@genre_keyword.name} genre" : ''%></h1>
 <% if @results.present? %>
-<ul>
+<div class="flex justify-center">
+  <div class="<%= @results_length >= 3 ? 'grid grid-cols-3' : "grid grid-cols-#{@results_length}" %> gap-10 list-none text-center">
   <% @results.each do |manga| %>
-    <%= image_tag manga.image %>
-    <li><%= link_to manga.title, manga %></li>
+    <%= link_to manga_path(manga) do %>
+      <div class="flex flex-col text-2xl py-4 items-center m-auto">
+        <p class="p-2"><%= image_tag(manga.image, size: "300x600") %></p>
+        <p class="m-2"><%= manga.title %></p>
+        <p class="text-xl">Price: <%= manga.price %></p>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+  </div>
+</div>
+<div class="flex justify-center mx-auto">
+ <%= paginate @results, window: 2 %>
+</div>
 <% else %>
+<div class="flex justify-center">
   <p>No search results available.</p>
+</div>
 <% end %>

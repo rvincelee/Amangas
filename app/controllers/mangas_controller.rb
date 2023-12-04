@@ -1,6 +1,6 @@
 class MangasController < ApplicationController
   def index
-    @mangas = Manga.all
+    @mangas = Manga.page(params[:page])
   end
 
   def show

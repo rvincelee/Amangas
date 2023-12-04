@@ -2,13 +2,21 @@
 <div class="flex justify-center">
   <div class="grid grid-cols-3 gap-10 list-none text-center">
   <% @mangas.each do |manga| %>
-    <%= link_to manga_path(manga) do %>
-      <div class="flex flex-col text-2xl py-4 items-center m-auto">
+    <div class="flex flex-col text-2xl py-items-center m-auto">
+      <%= link_to manga_path(manga) do %>
         <p class="p-2"><%= image_tag(manga.image, size: "300x600") %></p>
         <p class="m-2"><%= manga.title %></p>
+      <% end %>
         <p class="text-xl">Price: <%= manga.price %></p>
-      </div>
+    <%= form_with url: cart_index_path, method: :post do %>
+      <%= hidden_field_tag(:id, manga.id) %>
+      <%= hidden_field_tag(:quantity, 1) %>
+      <%= button_tag 'Add to Cart', class:"py-4" %>
     <% end %>
+      </div>
   <% end %>
   </div>
+</div>
+<div class="flex justify-center mx-auto">
+ <%= paginate @mangas, window: 2 %>
 </div>
