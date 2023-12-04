@@ -15,7 +15,6 @@ class SearchController < ApplicationController
       @results_length = @results.length
     else
       redirect_to mangas_path
-
     end
   end
 end

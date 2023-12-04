@@ -55,8 +55,6 @@ manga_data["data"].each do |manga|
     genre = Genre.find_by(name: genre_data["name"])
     genre.mangas << manga_instance if !manga_instance.genres.exists?(genre.id) && manga_instance
   end
-
-  sleep(1)
 end
 
 provinces = [{ name: "Alberta", abbreviation: "AB", PST: nil, GST: 0.05, HST: nil },
@@ -82,5 +80,4 @@ provinces.each do |province|
     GST:          province[:GST],
     HST:          province[:HST]
   )
-  puts(prov)
 end
