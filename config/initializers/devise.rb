@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '7493c1d7add6198bb9b0cbbe6e13cc64d4c2b45abb73f27526ba5b26f120315c90e22faa97c209c946d1a52630a1dbfe12d9a22c404112e2a670b0504f8463c7'
+  # config.secret_key = '7119bec982af76de1ed15372d2991c24329b4220cabac619919dc4a114acb11d4823e0b0f8dc32e627d68a1d711010f422c76b162e6925d283d5d2404c9d1778'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -36,7 +36,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'f7c872bdba6b8368d425dea4061c6004bd54251077ce20498525adfa84bd2422f217cba62ff8aa96ecefc8a59307c05f8e57420cd1e01c525b624053b0bcb8e5'
+  # config.pepper = 'b10c5b4ce792866dc0ace8037afbd9b4e55ed2ba90ede7480c68a7b765ef89131dfda9dd6b369f7da6619b1bbb7885b515708f71cd92e8973c9418aff114dba9'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -307,6 +307,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :registerable
 
+  config.navigational_formats = ["*/*", :html, :turbo_stream]
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true

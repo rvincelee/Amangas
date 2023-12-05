@@ -1,0 +1,22 @@
+
+<% if user_signed_in? %>
+<div class="flex max-w-7xl justify-between mx-auto py-2 text-xl items-center">
+  Welcome <%= current_user.email %>
+  <div class="flex items-center text-xl ">
+    <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "mx-4" %>
+    <%= render partial: 'cart/cart' %>
+  </div>
+</div>
+<div class="flex max-w-7xl mx-auto justify-end">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+</div>
+<% else %>
+<div class="flex max-w-7xl justify-between mx-auto py-2 text-xl items-center">
+  Welcome Guest!
+  <div class="flex items-center text-xl ">
+    <%= button_to "Sign in", new_user_session_path, class: "mx-4" %>
+    <%= render partial: 'cart/cart' %>
+  </div>
+</div>
+<% end %>

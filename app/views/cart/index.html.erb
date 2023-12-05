@@ -1,7 +1,11 @@
 <h1 class="text-4xl font-semibold text-center p-4">My Cart</h1>
-
+<div class="flex justify-between text-xl border-b-2">
+  <p class="mx-2">Item</p>
+  <p class="mx-2">Price</p>
+</div>
 <% if cart.present? %>
   <% cart.each do |manga| %>
+  <div class="flex justify-between items-center">
     <div class="flex flex-col mx-2 p-4" >
       <div class="flex">
         <%= link_to image_tag(manga.image, size: "100x200"), manga_path(manga) %>
@@ -19,11 +23,17 @@
             <%= button_to "Remove", cart_path(id: manga.id), class:"items-end text-blue-600 hover:text-blue-800 hover:underline", method: :delete %>
           </div>
         </div>
-
       </div>
-
     </div>
+      <p class="mx-4"><%= number_to_currency(manga.price * session[:shopping_cart][manga.id.to_s]["quantity"].to_i) %></p>
+  </div>
   <% end %>
+  <div class="flex justify-end border-t-2">
+    <p class="mx-4">Subtotal: <%= number_to_currency(@subtotal) %></p>
+  </div>
+  <div>
+    <%# <%= button_to "Checkout", %>
+  </div>
 <% else %>
-  <p>Your cart is empty</p>
+  <p class="flex mx-auto">Your cart is empty</p>
 <% end %>
