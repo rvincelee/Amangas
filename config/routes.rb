@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "home/index"
-
+  resources :checkout, only: %i[index]
+  resources :addresses, only: %i[new create]
   resources :genres, only: %i[index show]
   resources :order_details, only: %i[index show]
   resources :orders, only: %i[index show]

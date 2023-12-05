@@ -31,8 +31,8 @@
   <div class="flex justify-end border-t-2">
     <p class="mx-4">Subtotal: <%= number_to_currency(@subtotal) %></p>
   </div>
-  <div>
-    <%# <%= button_to "Checkout", %>
+  <div class="text-center p-4">
+      <%= link_to "Go to Checkout", checkout_index_path %>
   </div>
 <% else %>
   <p class="flex mx-auto">Your cart is empty</p>
