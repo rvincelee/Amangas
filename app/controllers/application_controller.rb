@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
+  include Devise::Controllers::Helpers
   before_action :initialize_session
-  helper_method :cart
+  helper_method :cart, :current_user_has_address?
 
   private
 

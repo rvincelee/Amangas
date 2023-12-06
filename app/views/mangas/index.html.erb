@@ -29,7 +29,7 @@
         <%= form_with url: cart_index_path, method: :post do %>
           <%= hidden_field_tag(:id, manga.id) %>
           <%= hidden_field_tag(:quantity, 1) %>
-          <%= button_tag 'Add to Cart', class:"text-blue-500 hover:text-blue-600 hover:underline" %>
+          <%= button_tag 'Add to Cart', class:"text-blue-600 hover:text-blue-800 hover:underline" %>
         <% end %>
       </div>
     </div>

@@ -273,6 +273,7 @@ GEM
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
     stringio (3.0.8)
+    stripe (10.2.0)
     tailwindcss-rails (2.0.32-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.2)
@@ -313,7 +314,6 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
-  mini_magick
   puma (~> 5.0)
   rails (~> 7.0.8)
   rest-client
@@ -322,6 +322,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  stripe
   tailwindcss-rails (~> 2.0)
   turbo-rails
   tzinfo-data

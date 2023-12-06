@@ -38,5 +38,9 @@ class CartController < ApplicationController
   def index
     manga_ids = session[:shopping_cart].keys
     @items = Manga.where(id: manga_ids)
+    prices = @items.map do |item|
+      item.price * session[:shopping_cart][item.id.to_s]["quantity"].to_i
+    end
+    @subtotal = prices.sum
   end
 end
