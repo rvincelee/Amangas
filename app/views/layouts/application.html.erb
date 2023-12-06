@@ -7,12 +7,14 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://js.stripe.com/v3"></script>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
   <%# <%= debug session["shopping_cart"]%>
-  <%# <%= debug session["guest_address"] %>
+  <%= debug session["guest_address"] %>
+  <%= debug session["checkout_address"]%>
     <%= render partial: 'login/login_banner'%>
     <%= render partial: 'shared/banner' %>
     <%= render partial: 'shared/search' %>

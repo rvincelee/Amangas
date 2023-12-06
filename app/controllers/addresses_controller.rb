@@ -19,6 +19,7 @@ class AddressesController < ApplicationController
     )
 
     address.save
+
     session["guest_address"] = address unless current_user.present?
 
     redirect_to checkout_index_path
