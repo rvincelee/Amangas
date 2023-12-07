@@ -1,49 +1,32 @@
 <h1 class="text-4xl font-semibold text-center p-4">Checkout</h1>
 <p>Ship To:</p>
-<% if current_user.present? && current_user.addresses.size > 1 %>
-  <%= select_tag(:address_id,
-      options_for_select(@addresses.map { |address| ["#{address.street} #{address.city} #{address.postal_code}", address.id] }),
-      class: 'form-control rounded-md text-sm'
-  ) %>
-<% elsif session["guest_address"] || current_user.addresses.present? %>
+<% if current_user.present? %>
+  <% if current_user.addresses.present? %>
+    <div class="flex flex-col">
+      <p><%= current_user.addresses[0].street %></p>
+      <p><%= "#{current_user.addresses[0].city}, #{@province.abbreviation}" %></p>
+      <p><%= current_user.addresses[0].postal_code %></p>
+    </div>
+  <% else %>
+    <%= render partial: 'addresses/form' %>
+  <% end %>
+<% elsif session["guest_address"].present? %>
   <div class="flex flex-col">
-    <p><%= current_user.present? ? current_user.addresses[0].street : session["guest_address"]["street"]%></p>
-    <p><%= current_user.present? ? current_user.addresses[0].city : session["guest_address"]["city"]%>, <%= @province.abbreviation %></p>
-    <p><%= current_user.present? ? current_user.addresses[0].postal_code : session["guest_address"]["postal_code"]%></p>
+    <p><%= session["guest_address"]["street"] %></p>
+    <p><%= "#{session["guest_address"]["city"]}, #{@province.abbreviation}" %></p>
+    <p><%= session["guest_address"]["postal_code"] %></p>
   </div>
 <% else %>
-  <%= render partial: 'addresses/form'%>
+  <%= render partial: 'addresses/form' %>
 <% end %>
-<div class="flex justify-between text-xl border-b-2">
-  <p class="mx-2">Item</p>
-  <p class="mx-2">Price</p>
-</div>
-<% if cart.present? %>
-  <% cart.each do |manga| %>
-  <div class="flex justify-between items-center">
-    <div class="flex flex-col mx-2 p-4" >
-      <div class="flex">
-        <%= link_to image_tag(manga.image, size: "100x200"), manga_path(manga) %>
-        <div class="flex flex-col mx-4 justify-between">
-          <p class="text-2xl"><%= link_to manga.title, manga_path(manga) %></p>
-          <p class="text-md">By: <%= link_to manga.author.name, author_path(manga), class: "text-blue-600 hover:text-blue-800 hover:underline" %></p>
-          <div class="flex flex-row items-center">
-            <p class="text-md"><%= "Qty: x#{session[:shopping_cart][manga.id.to_s]["quantity"]}" %></p>
-          </div>
-        </div>
-      </div>
-    </div>
-      <p class="mx-4"><%= number_to_currency(manga.price * session[:shopping_cart][manga.id.to_s]["quantity"].to_i) %></p>
-  </div>
-  <% end %>
-<% end %>
+<%= render partial: 'shared/manga_list_checkout' %>
 <div class="flex justify-end border-t-2">
   <div class="flex flex-col">
    <div class="flex justify-between mx-4">
     <p class="mx-4">Subtotal:</p>
     <%= number_to_currency(@subtotal) %>
     </div>
-    <% if current_user.addresses.present? %>
+    <% if current_user.present? && current_user.addresses.present?%>
       <% if @pst != 0 %>
       <div class="flex justify-between mx-4">
         <p class="mx-4">PST<%= "(#{number_to_percentage(@pst * 100, precision: 0)}): "%></p>
@@ -68,13 +51,40 @@
           <%= number_to_currency(@subtotal * (@pst + @gst + @hst) + @subtotal) %>
         </div>
       </div>
+      <% elsif session["checkout_address"].present? %>
+            <% if @pst != 0 %>
+      <div class="flex justify-between mx-4">
+        <p class="mx-4">PST<%= "(#{number_to_percentage(@pst * 100, precision: 0)}): "%></p>
+        <%= number_to_currency(@pst * @subtotal) %>
+      </div>
+      <% end %>
+      <% if @hst != 0 %>
+      <div class="flex justify-between mx-4">
+        <p class="mx-4">HST<%= "(#{number_to_percentage(@hst * 100, precision: 0)}): "%></p>
+        <%= number_to_currency(@hst * @subtotal) %>
+      </div>
+      <% end %>
+      <% if @gst != 0%>
+      <div class="flex justify-between mx-4">
+        <p class="mx-4">GST<%= "(#{number_to_percentage(@gst * 100, precision: 0)}): "%></p>
+        <%= number_to_currency(@gst * @subtotal) %>
+      </div>
+      <% end %>
+      <div class="border-t-2">
+        <div class="flex justify-between mx-4 ">
+          <p class="mx-4">Total:</p>
+          <%= number_to_currency(@subtotal * (@pst + @gst + @hst) + @subtotal) %>
+        </div>
+      </div>
       <% else %>
-      <p>Awaiting shipping information</p>
+        <p>Awaiting shipping information</p>
       <% end %>
   </div>
 </div>
 <div>
+<% if session["checkout_address"].present? %>
   <%= form_with url:checkout_create_path, remote: true, data: { turbo: false } do %>
     <%= button_tag 'Proceed to payment' %>
+  <% end %>
   <% end %>
 </div>

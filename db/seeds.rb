@@ -6,6 +6,7 @@ AdminUser.delete_all
 OrderDetail.delete_all
 Order.delete_all
 Manga.delete_all
+Address.delete_all
 User.delete_all
 Author.delete_all
 Genre.delete_all

@@ -10,19 +10,27 @@ class AddressesController < ApplicationController
   end
 
   def create
-    address = Address.create(
-      street:      params[:street],
-      city:        params[:city],
-      postal_code: params[:postal_code],
-      province_id: params[:province_id],
-      user_id:     current_user.present? ? current_user.id : nil
-    )
+    def create
+      if current_user.present?
+        # User is logged in, create an address for the user
+        address = current_user.addresses.create(
+          street:      params[:street],
+          city:        params[:city],
+          postal_code: params[:postal_code],
+          province_id: params[:province_id]
+        )
+      else
+        # User is a guest, store address details in the session
+        session["guest_address"] = {
+          street:      params[:street],
+          city:        params[:city],
+          postal_code: params[:postal_code],
+          province_id: params[:province_id]
+        }
+      end
 
-    address.save
-
-    session["guest_address"] = address unless current_user.present?
-
-    redirect_to checkout_index_path
+      redirect_to checkout_index_path
+    end
   end
 
   private

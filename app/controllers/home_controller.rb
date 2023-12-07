@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
   def index
-    # manga_controller = MangasController.new
-    # manga_controller.index
-    # @mangas = manga_controller.instance_variable_get(:@mangas)
+    session["guest_address"] = nil
+    session["checkout_address"] = nil
+    session["order"] = nil
+    session["order_details"] = nil
   end
 end

@@ -1,0 +1,23 @@
+<div class="flex justify-between text-xl border-b-2">
+  <p class="mx-2">Item</p>
+  <p class="mx-2">Price</p>
+</div>
+<% if cart.present? %>
+  <% cart.each do |manga| %>
+  <div class="flex justify-between items-center">
+    <div class="flex flex-col mx-2 p-4" >
+      <div class="flex">
+        <%= link_to image_tag(manga.image, size: "100x200"), manga_path(manga) %>
+        <div class="flex flex-col mx-4 justify-between">
+          <p class="text-2xl"><%= link_to manga.title, manga_path(manga) %></p>
+          <p class="text-md">By: <%= link_to manga.author.name, author_path(manga), class: "text-blue-600 hover:text-blue-800 hover:underline" %></p>
+          <div class="flex flex-row items-center">
+            <p class="text-md"><%= "Qty: x#{session[:shopping_cart][manga.id.to_s]["quantity"]}" %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+      <p class="mx-4"><%= number_to_currency(manga.price * session[:shopping_cart][manga.id.to_s]["quantity"].to_i) %></p>
+  </div>
+  <% end %>
+<% end %>

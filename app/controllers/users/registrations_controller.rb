@@ -10,9 +10,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+
+    return unless session["order"].present?
+
+    order = Order.where(id: session["order"]["id"])
+    order.update(user_id: resource.id)
+
+    resource.addresses.create(
+      street:      session["checkout_address"]["street"],
+      city:        session["checkout_address"]["city"],
+      postal_code: session["checkout_address"]["postal_code"],
+      province_id: session["checkout_address"]["province_id"]
+    )
+
+    session["guest_address"] = nil
+    session["checkout_address"] = nil
+    session["order"] = nil
+    session["order_details"] = nil
+  end
 
   # GET /resource/edit
   # def edit

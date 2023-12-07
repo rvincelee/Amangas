@@ -1,1 +1,12 @@
-Your order is being processed!
+<p>Payment successful</p>
+<p>Your order is being processed!</p>
+<p>Thank you for your purchase.</p>
+<p>An email will be sent out for your records.</p>
+<% if !current_user.present? %>
+<p>Make checkout easier next time! Register for an account
+<%= link_to "here", new_user_registration_path  %></p>
+<% end %>
+<div>
+  <p>Order Confirmation</p>
+  <p>Order Number: <%= @order.order_number %></p>
+</div>

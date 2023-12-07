@@ -13,9 +13,18 @@ class CheckoutController < ApplicationController
 
     @subtotal = prices.sum
 
-    return unless current_user.addresses.present? || session["guest_address"].present?
+    return unless session["guest_address"].present? || current_user.present?
 
-    @province = Province.find(current_user.present? ? current_user.addresses[0].province_id : session["guest_address"]["province_id"])
+    if current_user.present?
+      if current_user.addresses.present?
+        @province = Province.find(current_user.addresses[0].province_id)
+      end
+    else
+      # Guest user logic
+      @province = Province.find(session["guest_address"]["province_id"])
+    end
+    return if @province.nil?
+
     @pst = @province.PST.to_f
     @gst = @province.GST.to_f
     @hst = @province.HST.to_f
@@ -109,6 +118,57 @@ class CheckoutController < ApplicationController
   def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    manga_ids = session["shopping_cart"].keys
+    items = Manga.where(id: manga_ids)
+    province = Province.find(session["checkout_address"]["province_id"].to_i)
+    tax_rate = 0
+    tax_rate += province.GST unless province.GST.nil?
+    tax_rate += province.HST unless province.HST.nil?
+    tax_rate += province.PST unless province.PST.nil?
+
+    if current_user.present?
+      @order = current_user.orders.create(
+        order_number: params[:session_id],
+        total:        @session.amount_total / 100.00,
+        date:         Date.current,
+        taxes_rate:   tax_rate,
+        tax_price:    tax_rate * (@session.amount_total / 100.00)
+      )
+
+      @order_details = []
+
+      items.each do |item|
+        @order_details << OrderDetail.create(
+          order_id: @order.id,
+          price:    item.price,
+          quantity: session["shopping_cart"][item.id.to_s]["quantity"].to_i,
+          manga_id: item.id
+        )
+      end
+    else
+      @order = Order.create(
+        order_number: params[:session_id],
+        total:        @session.amount_total / 100.00,
+        date:         Date.current,
+        taxes_rate:   tax_rate,
+        tax_price:    tax_rate * (@session.amount_total / 100.00)
+      )
+
+      session["order"] = @order
+
+      @order_details = []
+
+      items.each do |item|
+        @order_details << OrderDetail.create(
+          quantity: session["shopping_cart"][item.id.to_s]["quantity"].to_i,
+          manga_id: item.id,
+          order_id: @order.id,
+          price:    item.price
+        )
+      end
+
+      session["order_details"] = @order_details
+    end
   end
 
   def cancel; end
