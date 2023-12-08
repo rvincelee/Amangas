@@ -124,8 +124,6 @@ class CheckoutController < ApplicationController
     tax_rate += province.HST unless province.HST.nil?
     tax_rate += province.PST unless province.PST.nil?
 
-    puts tax_rate
-
     if current_user.present?
       @order = current_user.orders.create(
         order_number: params[:session_id],
@@ -169,6 +167,9 @@ class CheckoutController < ApplicationController
 
       session["order_details"] = @order_details
     end
+
+    session.delete(:shopping_cart)
+    session[:shopping_cart] ||= {}
   end
 
   def cancel; end
