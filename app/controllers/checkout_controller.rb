@@ -52,7 +52,11 @@ class CheckoutController < ApplicationController
     end
 
     province = Province.find(session["checkout_address"]["province_id"])
+    subtotal = items_list.sum do |item|
+      item[:price_data][:unit_amount] * item[:quantity]
+    end
 
+    puts(subtotal)
     unless province.GST.nil?
       items_list << {
         price_data: {
@@ -62,9 +66,7 @@ class CheckoutController < ApplicationController
             description: "Goods and Services Tax"
           },
 
-          unit_amount:  (items_list.sum { |item|
-                           item[:price_data][:unit_amount] * item[:quantity]
-                         } * province.GST).to_i
+          unit_amount:  (subtotal * province.GST).to_i
         },
         quantity:   1
       }
@@ -79,9 +81,7 @@ class CheckoutController < ApplicationController
             description: "Provincial Sales Tax"
           },
 
-          unit_amount:  (items_list.sum { |item|
-                           item[:price_data][:unit_amount] * item[:quantity]
-                         } * province.PST).to_i
+          unit_amount:  (subtotal * province.PST).to_i
         },
         quantity:   1
       }
@@ -96,9 +96,7 @@ class CheckoutController < ApplicationController
             description: "Harmonized Sales Tax"
           },
 
-          unit_amount:  (items_list.sum { |item|
-                           item[:price_data][:unit_amount] * item[:quantity]
-                         } * province.HST).to_i
+          unit_amount:  (subtotal * province.HST).to_i
         },
         quantity:   1
       }
@@ -119,12 +117,14 @@ class CheckoutController < ApplicationController
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
     manga_ids = session["shopping_cart"].keys
-    items = Manga.where(id: manga_ids)
+    @items = Manga.where(id: manga_ids)
     province = Province.find(session["checkout_address"]["province_id"].to_i)
     tax_rate = 0
     tax_rate += province.GST unless province.GST.nil?
     tax_rate += province.HST unless province.HST.nil?
     tax_rate += province.PST unless province.PST.nil?
+
+    puts tax_rate
 
     if current_user.present?
       @order = current_user.orders.create(
@@ -137,7 +137,7 @@ class CheckoutController < ApplicationController
 
       @order_details = []
 
-      items.each do |item|
+      @items.each do |item|
         @order_details << OrderDetail.create(
           order_id: @order.id,
           price:    item.price,
@@ -158,7 +158,7 @@ class CheckoutController < ApplicationController
 
       @order_details = []
 
-      items.each do |item|
+      @items.each do |item|
         @order_details << OrderDetail.create(
           quantity: session["shopping_cart"][item.id.to_s]["quantity"].to_i,
           manga_id: item.id,

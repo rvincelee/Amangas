@@ -11,14 +11,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= render partial: 'login/login_banner'%>
-    <%= render partial: 'shared/banner' %>
-    <%= render partial: 'shared/search' %>
-    <%= render partial: 'shared/nav' %>
-    <div class="max-w-7xl max-h-full mx-auto">
-      <%= yield %>
-      <%= render partial: 'shared/footer' %>
+  <body class="bg-slate-200">
+    <div class="bg-gradient-to-br from-emerald-800 to-emerald-200">
+      <%= render partial: 'login/login_banner'%>
+      <%= render partial: 'shared/banner' %>
+      <%= render partial: 'shared/search' %>
     </div>
+      <%= render partial: 'shared/nav' %>
+    <div class="max-w-7xl h-auto mx-auto bg-white">
+      <%= yield %>
+    </div>
+      <%= render partial: 'shared/footer' %>
   </body>
 </html>

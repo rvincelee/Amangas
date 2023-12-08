@@ -2,7 +2,7 @@
 <div class="flex justify-center">
     <ul class="grid grid-cols-5 gap-4 list-none text-center">
     <% @authors.each do |author| %>
-        <li class="p-4 m-2"><%= link_to author.name, author, class: "text-xl" %></li>
+        <li class="p-4 m-2"><%= link_to author.name, author, class: "text-blue-600 hover:text-blue-900 hover:underline" %></li>
     <% end %>
     </ul>
 </div>

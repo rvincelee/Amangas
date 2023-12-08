@@ -12,7 +12,7 @@
         ['Recently Updated', 'recently_updated'],
         ['New Products', 'new_products']
       ], params[:sort_by]),
-      class: 'form-control rounded-md text-sm', onchange: 'this.form.submit();'
+      class: 'form-control rounded-md text-sm mx-2', onchange: 'this.form.submit();'
     ) %>
   <% end %>
 </div>
@@ -29,13 +29,13 @@
         <%= form_with url: cart_index_path, method: :post do %>
           <%= hidden_field_tag(:id, manga.id) %>
           <%= hidden_field_tag(:quantity, 1) %>
-          <%= button_tag 'Add to Cart', class:"text-blue-600 hover:text-blue-800 hover:underline" %>
+          <%= button_tag 'Add to Cart', class: "text-lg text-white mt-8 ml-auto bg-emerald-800 p-4 px-10 rounded-full hover:bg-emerald-600" %>
         <% end %>
       </div>
     </div>
   <% end %>
   </div>
 </div>
-<div class="flex justify-center mx-auto">
+<div class="flex justify-center mx-auto py-4">
  <%= paginate @mangas, window: 2 %>
 </div>
