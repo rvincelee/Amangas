@@ -32,9 +32,10 @@
   <div class="flex justify-end border-t-2 ">
     <p class="mx-4 my-2">Subtotal: <%= number_to_currency(@subtotal) %></p>
   </div>
-  <div class="text-center bg-yellow-400 hover:bg-yellow-600 text-black font-bold px-4 py-2 rounded-md">
-      <%= link_to "Checkout", checkout_index_path %>
-  </div>
+  <%= link_to checkout_index_path, class: "block text-center bg-yellow-400 hover:bg-yellow-600 text-black font-bold px-4 py-2 rounded-md" do %>
+    Checkout
+  <% end %>
+
 <% else %>
   <p class="flex mx-2 my-4">Your cart is empty</p>
 <% end %>

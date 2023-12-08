@@ -1,5 +1,5 @@
-<h1><%= @genre.name %> Manga</h1>
-<ul>
+<h1 class="text-4xl font-semibold text-center p-4"><%= @genre.name %> Manga</h1>
+<ul class="p-4">
   <% @mangas.each do |manga| %>
     <li><%= link_to manga.title, manga %></li>
   <% end %>

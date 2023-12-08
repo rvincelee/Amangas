@@ -1,11 +1,10 @@
-<h1 class="text-4xl font-semibold text-center p-4"><%= @author.name %></h1>
-
+<h1 class="text-4xl font-semibold text-center p-4">Manga by <%= @author.name %></h1>
 <div class="flex justify-center">
   <ul class="max-w-md">
     <% @author.manga.each do |manga| %>
       <li class="flex flex-row items-center py-4 border-2 border-gray-900 rounded-md text-center mb-4">
         <div class="p-4">
-          <div class="text-xl font-bold">
+          <div class="text-xl font-bold hover:text-blue-600">
             <%= link_to manga_path(manga) do %>
             <p class="p-2"><%= image_tag(manga.image, size: "200x300") %></p>
             <p class="m-2"><%= manga.title %></p>
@@ -13,7 +12,8 @@
           </div>
         </div>
         <div class="p-4">
-          <div class="text-sm" style="width: 400px;">
+        <p class="text-left">Synopsis:</p>
+          <div class="text-sm w-auto text-left" >
             <%= manga.description.truncate(200, omission: '...') %>
           </div>
         </div>
