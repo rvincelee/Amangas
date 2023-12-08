@@ -1,7 +1,42 @@
+<div class="p-2">
+    <div class="flex justify-between items-end">
+        <h1 class="p-4 text-3xl mx-4">Hottest Items</h1>
+        <p class="p-4 mx-4 text-blue-700 ">See all</p>
+    </div>
+    <div class="flex justify-center items-center border-t-2 mx-6 border-gray-600">
+        <% @featured.each do |manga| %>
+        <p class="mx-6 my-4 shadow-lg shadow-gray-400">
+            <%= link_to manga_path(manga) do %>
+                <%= image_tag(manga.image, size: "150x400") %>
+            <% end %>
+            </p>
+        <% end %>
+    </div>
+    <div class="flex justify-between items-end">
+        <h1 class="p-4 mt-4 text-3xl mx-4">Top Items</h1>
+        <p class="p-4 mx-4 text-blue-700 ">See all</p>
+    </div>
+    <div class="flex justify-center items-center border-t-2 mx-6 border-gray-600">
+        <% @best_sellers.each do |manga| %>
+        <p class="mx-6 my-4 shadow-lg shadow-gray-400">
+            <%= link_to manga_path(manga) do %>
+                <%= image_tag(manga.image, size: "150x400") %>
+            <% end %>
+            </p>
+        <% end %>
+    </div>
 
-
-<p class="p-4">
-    We are the owners of Amangas! Thank you for taking your time and browsing our page.<br/>
-    Take a look at our collection, and enjoy yourselves!<br/>
-    If you find anything that you think is interesting, feel free to check the ratings and see if it's to your liking.<br/>
-</p>
+    <div class="flex justify-between items-end">
+        <h1 class="p-4 mt-4 text-3xl mx-4">Completed</h1>
+        <p class="p-4 mx-4 text-blue-700 ">See all</p>
+    </div>
+    <div class="flex justify-center items-center border-t-2 mx-6 mb-4 border-gray-600">
+        <% @completed.each do |manga| %>
+        <p class="mx-6 my-4 shadow-lg shadow-gray-400">
+            <%= link_to manga_path(manga) do %>
+                <%= image_tag(manga.image, size: "150x400") %>
+            <% end %>
+            </p>
+        <% end %>
+    </div>
+</div>

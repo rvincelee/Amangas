@@ -21,11 +21,11 @@
   <% @mangas.each do |manga| %>
     <div class="flex flex-col text-2xl py-2 items-center m-auto">
       <%= link_to manga_path(manga) do %>
-        <p class="p-2"><%= image_tag(manga.image, size: "300x600") %></p>
+        <p class="shadow-lg shadow-gray-400"><%= image_tag(manga.image, size: "300x600") %></p>
         <p class="m-2"><%= manga.title %></p>
       <% end %>
       <div class="flex flex-col mt-auto">
-        <p class="text-xl">Price: <%= manga.price %></p>
+        <p class="text-lg">Price: <%= manga.price %></p>
         <%= form_with url: cart_index_path, method: :post do %>
           <%= hidden_field_tag(:id, manga.id) %>
           <%= hidden_field_tag(:quantity, 1) %>

@@ -6,7 +6,7 @@
         <div class="p-4">
           <div class="text-xl font-bold hover:text-blue-600">
             <%= link_to manga_path(manga) do %>
-            <p class="p-2"><%= image_tag(manga.image, size: "200x300") %></p>
+            <p class="shadow-lg shadow-gray-400"><%= image_tag(manga.image, size: "200x300") %></p>
             <p class="m-2"><%= manga.title %></p>
             <% end %>
           </div>
