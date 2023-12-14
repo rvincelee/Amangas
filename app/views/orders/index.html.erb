@@ -1,1 +1,63 @@
+<div class="p-4">
+<h1 class="text-4xl font-semibold text-center p-4">My Orders</h1>
+<% @orders.each do |order| %>
+<div class="container flex flex-col p-2">
+  <div class="flex justify-between text-xl bg-yellow-400 p-4 rounded-xl border-2 border-black">
+    <p class="" >Order Number: <%= order.order_number %></p>
+    <p class="" >Date: <%= order.date %></p>
+  </div>
+   <div class= "bg-amber-50">
+  <div class="flex justify-between text-xl border-b-2 my-4 mx-2">
+    <p class="mx-2">Item</p>
+    <p class="mx-2">Price</p>
+  </div>
 
+    <% @order_details.each do |detail| %>
+      <% if detail.order_id == order.id %>
+        <% @mangas.each do |manga| %>
+          <% if manga.id == detail.manga_id %>
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col mx-2 p-4" >
+                  <div class="flex">
+                    <%= link_to image_tag(manga.image, size: "100x200"), manga_path(manga) %>
+                    <div class="flex flex-col m-4">
+                      <p class="text-2xl"><%= link_to manga.title, manga_path(manga) %></p>
+                      <p class="text-md">By: <%= link_to manga.author.name, author_path(manga), class: "text-blue-600 hover:text-blue-800 hover:underline" %></p>
+                      <div class="flex flex-row items-center">
+                        <p class="text-md"><%= "Qty: x#{detail.quantity}" %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="mx-4"><%= number_to_currency(detail.price * detail.quantity.to_i) %></p>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+<div class="flex justify-end border-t-2 mx-2">
+  <div class="flex flex-col">
+    <div class="flex justify-between mx-2 my-2">
+      <p class="mx-4">Subtotal: </p>
+      <%= number_to_currency(order.total - order.tax_price) %>
+    </div>
+    <div class="flex justify-between mx-2">
+      <p class="mx-4">Tax Rate: </p>
+      <%= number_to_percentage(order.taxes_rate * 100, precision: 0) %>
+    </div>
+    <div class="flex justify-between mx-2 my-2">
+      <p class="mx-4">Tax Total: </p>
+      <%= number_to_currency(order.tax_price) %>
+      </div>
+    <div class="border-t-2">
+      <div class="flex justify-between mx-2">
+        <p class="mx-4">Total: </p>
+        <%= number_to_currency(order.total) %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<% end %>
+</div>

@@ -4,5 +4,5 @@ class Manga < ApplicationRecord
   has_one_attached :image
   validates :price, presence: true, numericality: true
   validates :title, :publish_date, :status, :description, presence: true
-  paginates_per 6
+  paginates_per 8
 end

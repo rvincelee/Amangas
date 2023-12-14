@@ -17,20 +17,23 @@
   <% end %>
 </div>
 <div class="flex justify-center">
-  <div class="grid grid-cols-3 gap-10 list-none text-center">
+  <div class="grid grid-cols-4 list-none">
   <% @mangas.each do |manga| %>
-    <div class="flex flex-col text-2xl py-2 items-center m-auto">
+    <div class="flex flex-col flex-wrap text-sm py-2 mx-auto">
       <%= link_to manga_path(manga) do %>
-        <p class="shadow-lg shadow-gray-400"><%= image_tag(manga.image, size: "300x600") %></p>
-        <p class="m-2"><%= manga.title %></p>
+        <%= image_tag(manga.image, size: "200x400", class: "mx-auto shadow-md shadow-gray-400") %>
+        <p class="m-2 font-semibold"><%= manga.title %></p>
       <% end %>
-      <div class="flex flex-col mt-auto">
-        <p class="text-lg">Price: <%= manga.price %></p>
+      <p class="mx-2 text-sm"><%= link_to manga.author.name,author_path(manga.author) %></p>
+      <div class="flex flex-col">
+        <p class="text-sm font-bold m-2 my-4"><%= number_to_currency(manga.price) %></p>
+        <div class="ml-auto">
         <%= form_with url: cart_index_path, method: :post do %>
           <%= hidden_field_tag(:id, manga.id) %>
           <%= hidden_field_tag(:quantity, 1) %>
-          <%= button_tag 'Add to Cart', class: "text-lg text-white mt-8 ml-auto bg-emerald-800 p-4 px-10 rounded-full hover:bg-emerald-600" %>
+          <%= button_tag 'Add to Cart', class: "ml-auto text-sm text-white mt-8 ml-auto bg-emerald-800 p-4 px-6 rounded-lg hover:bg-emerald-600" %>
         <% end %>
+        </div>
       </div>
     </div>
   <% end %>

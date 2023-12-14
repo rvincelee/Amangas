@@ -21,7 +21,7 @@
     <p>User Score: <%= @manga.score %></p>
     <p>Price: <%= @manga.price %></p>
     <p>Synopsis: <%= @manga.description %></p>
-    <div class="flex flex-auto text-lg text-white mt-8 ml-auto bg-emerald-800 p-4 px-10 rounded-full hover:bg-emerald-600">
+    <div class="flex flex-auto text-lg text-white mt-8 ml-auto bg-emerald-800 p-4 px-10 rounded-lg hover:bg-emerald-600">
       <%= form_with url: cart_index_path, method: :post do %>
         <%= hidden_field_tag(:id, @manga.id) %>
         <%= hidden_field_tag(:quantity, 1) %>

@@ -2,8 +2,13 @@ class OrdersController < ApplicationController
   before_action :validate_user
   def index
     @orders = Order.where(user_id: current_user.id)
-    @order_details = @orders.each do |order|
-      OrderDetail.where(order_id: order.id)
+    @order_details = []
+    @orders.each do |order|
+      @order_details += OrderDetail.where(order_id: order.id)
+    end
+    @mangas = []
+    @order_details.each do |detail|
+      @mangas |= Manga.where(id: detail.manga_id)
     end
   end
 
