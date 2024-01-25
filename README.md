@@ -12,11 +12,15 @@ rails db:migrate
 
 Followed by seeding the database with the command:
 
-```rails db:seed```
+```
+rails db:seed
+```
 
 Tailwind CSS configuration files will also need to be installed. You can do so by using the command:
 
-```rails tailwindcss:install```
+```
+rails tailwindcss:install
+```
 
 Enjoy Amangas!
 
