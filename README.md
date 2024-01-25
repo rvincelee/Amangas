@@ -3,6 +3,15 @@ Amangas is a user-friendly e-commerce web platform developed with Ruby on Rails 
 
 This project was developed by To Phuc and Vince Lee. 
 
+## Key Features:
+* **User Authentication:** Users can create an account and track their orders. If an account is made after purchasing, orders can be linked to the account.
+
+* **Browsing Manga:** Users can browse through the list of available manga sold by the store and filter the search by categories or key words.
+
+* **Shopping Cart:** Using sessions, users can add items to their cart to purchase items in bulk or to purchase at a later time.
+
+* **Secure Payments:** Integration with Stripe for secure and reliable payment processing.
+
 ## Setup
 Ruby Version 3.1.2
 
