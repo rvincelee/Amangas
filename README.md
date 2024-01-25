@@ -1,5 +1,9 @@
 # Amangas E-Commerce Platform
+Amangas is a user-friendly e-commerce web platform developed with Ruby on Rails as a final project from college. 
 
+This project was developed by To Phuc and Vince Lee. 
+
+## Setup
 Ruby Version 3.1.2
 
 Rails Version 7.0.8
@@ -24,7 +28,7 @@ rails tailwindcss:install
 
 Enjoy Amangas!
 
-# Preview
+## Preview
 
 **Home Page**
 
