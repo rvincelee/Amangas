@@ -14,7 +14,7 @@ Followed by seeding the database with the command:
 
 Tailwind CSS configuration files will also need to be installed. You can do so by using the command:
 
-rails tailwindcss:install
+```rails tailwindcss:install```
 
 Enjoy Amangas!
 
