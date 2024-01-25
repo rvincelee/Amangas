@@ -6,7 +6,9 @@ Rails Version 7.0.8
 
 After cloning the repository onto your local machine, navigate to the Amangas folder and migrate the database with the command:
 
-```rails db:migrate```
+```
+rails db:migrate
+```
 
 Followed by seeding the database with the command:
 
