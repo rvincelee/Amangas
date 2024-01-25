@@ -24,7 +24,7 @@ rails tailwindcss:install
 
 Enjoy Amangas!
 
-#Preview
+# Preview
 
 **Home Page**
 
